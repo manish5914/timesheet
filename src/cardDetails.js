@@ -1,9 +1,10 @@
 
-const CardDetails = (index, startTime, endTime, timeCode) => ({
+const CardDetails = (index, startTime, endTime, payCode, projectCode ) => ({
     index: index, 
     startTime: startTime,
     endTime: endTime,
-    timeCode: timeCode
+    payCode: payCode, 
+    projectCode: projectCode
 })
 
 export default CardDetails;

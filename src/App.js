@@ -3,43 +3,40 @@ import {useEffect, useState} from 'react';
 import './App.css';
 import CardDetails from './cardDetails';
 import Card from './Card';
+
 const App = () => {
 
   //const card = {startTime: '123', endTime: 'wer', timeCode: "3w4"}
   const [index, setIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(0);
   const [cards, setCards] = useState([]);
   
-  function AddCard(index, startTime, endTime, timeCode){
-    setCards(oldCards => [...oldCards, CardDetails(index, startTime, endTime, timeCode)]);
-    setIndex(index+1);
-    console.log(cards);
+  function AddCard(i, startTime, endTime){
+    return CardDetails(i, startTime, endTime);
   };
   function ClockIn() {
     var today = new Date().toLocaleString();
     let newArr = [...cards]
-    if(newArr[nextIndex]){
-      if(newArr[nextIndex].startTime === "start" ){
-        newArr[nextIndex].startTime = today
-      }else if(newArr[nextIndex].endTime === "end"){
-        newArr[nextIndex].endTime = today;
-      }
-      else{
-        setNextIndex(nextIndex + 1);
+    if(newArr[index]){
+      if(newArr[index].startTime === "start" ){
+        newArr[index].startTime = today
+      }else if(newArr[index].endTime === "end"){
+        newArr[index].endTime = today;
+        setIndex(index + 1);
       }
     }
+    else{
+      newArr.push(AddCard(index, today, "end"))
+    }
     setCards(newArr);
-    console.log(cards[nextIndex], index, nextIndex);
-    console.log(cards);
   }
   
   useEffect(() => {}, []);
   return (
     <div className="App">
       <h1>TimeSheet</h1>
-      <button onClick={() => (
+      {/* <button onClick={() => (
           AddCard(index, "start", "end", "timecode")
-        )}>Add</button>
+        )}>Add</button> */}
       <button onClick={() => (ClockIn())}>Clock In</button>
       
       <div className='Cards'>
