@@ -1,0 +1,7 @@
+{ "combo" :  [{"id": "Meal", "projectCode": "nonproject", "payCode": "MeetingPlannign"},
+                {"id": "PBI", "projectCode": "featuredev", "payCode": "product"},
+                {"id": "Bug", "projectCode": "maintenance", "payCode": "MeetingPlannign"},
+                {"id": "Scrum", "projectCode": "featuredev", "payCode": "MeetingPlannign"},
+                {"id": "Grooming", "projectCode": "featuredev", "payCode": "product"},
+                {"id": "Team Meeting", "projectCode": "dfoperations", "payCode": "MeetingPlannign"}]
+}
