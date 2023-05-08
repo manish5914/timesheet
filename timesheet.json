@@ -1,7 +1,86 @@
-{ "combo" :  [{"id": "Meal", "projectCode": "nonproject", "payCode": "MeetingPlannign"},
-                {"id": "PBI", "projectCode": "featuredev", "payCode": "product"},
-                {"id": "Bug", "projectCode": "maintenance", "payCode": "MeetingPlannign"},
-                {"id": "Scrum", "projectCode": "featuredev", "payCode": "MeetingPlannign"},
-                {"id": "Grooming", "projectCode": "featuredev", "payCode": "product"},
-                {"id": "Team Meeting", "projectCode": "dfoperations", "payCode": "MeetingPlannign"}]
+{
+  "combo": [
+    {
+      "id": "Work",
+      "projectCode": "Work",
+      "payCode": "^-^"
+    },
+    {
+      "id": "Meal",
+      "projectCode": "Non Project Time",
+      "payCode": "Meeting, Planning, Maintenance"
+    },
+    {
+      "id": "PBI",
+      "projectCode": "DF - HR_Mauritius_Feature_Development",
+      "payCode": "Product Enhancement"
+    },
+    {
+      "id": "Bug",
+      "projectCode": "DF - HR_Mauritius_Production_Maintenance",
+      "payCode": "Meeting, Planning, Maintenance"
+    },
+    {
+      "id": "Scrum",
+      "projectCode": "DF - HR_Mauritius_Feature_Development",
+      "payCode": "Meeting, Planning, Maintenance"
+    },
+    {
+      "id": "Grooming",
+      "projectCode": "DF - HR_Mauritius_Feature_Development",
+      "payCode": "Product Enhancement"
+    },
+    {
+      "id": "Team Meeting",
+      "projectCode": "DF - Operations",
+      "payCode": "Meeting, Planning, Maintenance"
+    }
+  ],
+  "timeSheet": [
+    {
+      "id": "08/05/2023",
+      "saveData": [
+        {
+          "index": 0,
+          "startTime": "21:16",
+          "endTime": "21:16",
+          "id": "Bug",
+          "payCode": "Meeting, Planning, Maintenance",
+          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
+        },
+        {
+          "index": 1,
+          "startTime": "21:16",
+          "endTime": "21:16",
+          "id": "PBI",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        },
+        {
+          "index": 2,
+          "startTime": "21:16",
+          "endTime": "21:16",
+          "id": "Scrum",
+          "payCode": "Meeting, Planning, Maintenance",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        },
+        {
+          "index": 3,
+          "startTime": "21:16",
+          "endTime": "21:16",
+          "id": "Meal",
+          "payCode": "Meeting, Planning, Maintenance",
+          "projectCode": "Non Project Time"
+        },
+        {
+          "index": 4,
+          "startTime": "21:16",
+          "endTime": "end",
+          "id": "Grooming",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        }
+      ]
+    }
+  ]
 }

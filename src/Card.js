@@ -1,5 +1,5 @@
 import React from "react";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -7,36 +7,30 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 const Card = ({currentCard}) =>
 {
-    const [timeCodes, setTimeCodes] = useState([
-        {combo: "Meal", projectCode: "nonproject", payCode: "MeetingPlannign"},
-        {combo: "PBI", projectCode: "featuredev", payCode: "product"},
-        {combo: "Bug", projectCode: "maintenance", payCode: "MeetingPlannign"},
-        {combo: "Scrum", projectCode: "featuredev", payCode: "MeetingPlannign"},
-        {combo: "Grooming", projectCode: "featuredev", payCode: "product"},
-        {combo: "Team Meeting", projectCode: "dfoperations", payCode: "MeetingPlannign"},
-    ])
+    const [card, setCard]= useState(currentCard[0]);
+    const [timeCodes, setTimeCodes] = useState(currentCard[1]);
+    const updateCards = currentCard[2];
     const handleSelect = (e) => {
-        UpdateCard(e);
-    }
-    function UpdateCard(i){
-        currentCard.projectCode = timeCodes[i].projectCode;
-        currentCard.payCode = timeCodes[i].payCode;
+        updateCards(card.index, e);
     }
     return (
         <div className="Card">
             <div>
-                <p>{currentCard.startTime ? currentCard.startTime : "StartTime"}</p>
+                <p>{currentCard[0].startTime ? currentCard[0].startTime : "StartTime"}</p>
             </div>
             <div>
-                <p>{currentCard.endTime ? currentCard.endTime : "EndTime"}</p>
+                <p>{currentCard[0].endTime ? currentCard[0].endTime : "EndTime"}</p>
             </div>
             <div>
-                <p>{currentCard.payCode ? currentCard.payCode: "No PayCode Selected"}</p>
+                <p>{currentCard[0].id ? currentCard[0].id: "No Combo Selected"}</p>
             </div>
             <div>
-                <p>{currentCard.projectCode ? currentCard.projectCode : "No Project Code Selected"}</p>
+                <p>{currentCard[0].payCode ? currentCard[0].payCode: "No PayCode Selected"}</p>
             </div>
-                   {timeCodes ?  (<DropdownButton title="Select a Combo" onSelect={handleSelect}> {timeCodes.map((timecode, index) => <Dropdown.Item eventKey={index}>{timecode.combo}</Dropdown.Item>)} </DropdownButton>):  <div><p>No Combo</p></div>}               
+            <div>
+                <p>{currentCard[0].projectCode ? currentCard[0].projectCode : "No Project Code Selected"}</p>
+            </div>
+                   {timeCodes ?  (<DropdownButton title="Select a Combo" onSelect={handleSelect}> {timeCodes.map((timecode, index) => <Dropdown.Item eventKey={index}>{timecode.id}</Dropdown.Item>)} </DropdownButton>):  <div><p>No Combo</p></div>}               
         </div>
     )
 }
