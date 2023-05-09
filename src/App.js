@@ -9,27 +9,46 @@ import { Tooltip } from 'bootstrap';
 //const
 //json-server --watch --port 8000 timesheet.json
 const timesheet_api = "http://localhost:8000/";
-
+const timesheet_saved_data_api = "http://localhost:8000/timeSheet/";
 
 const App = () => {
 
   //const card = {startTime: '123', endTime: 'wer', timeCode: "3w4"}
-  const [index, setIndex] = useState(0);
   const [cards, setCards] = useState([]);
   const [timesheetCode, setTimesheetCode] = useState();
+  const today = new Date().toISOString().substring(0,10); 
 
+  //api
    const GetTimesheetCode = async() => {
     axios.get(timesheet_api + "combo")
-    .then(
-      response => (
+    .then(response => (
           setTimesheetCode(response.data)
-        )
-      );
+        ));
   }
   const PostSaveTimeSheet = async(saveData) => {
-    var today = new Date().toLocaleDateString(); 
     var timesheetData = {id: today, saveData}
-    axios.post(timesheet_api + "timeSheet", timesheetData);
+    axios.post(timesheet_api + "timeSheet", timesheetData)
+    .then((response) => console.log("Data saved", response))
+    .catch((error)=> console.log("failed", error.response.data));
+  }
+  const GetCardsUsingDate = async(timesheetDateId) => {
+    axios.get(timesheet_saved_data_api + timesheetDateId)
+    .then((response) => {
+      console.log("Got Cards", response.data); 
+      loadCards(response.data)
+    })
+    .catch((error) => {
+      error.response.status === 404 ? console.log(error.message) : console.log("failed to fetch data", error.response)
+    })
+  }
+  const DeleteCardsUsingDate = async(timesheetDateId) => {
+    axios.delete(timesheet_saved_data_api + timesheetDateId)
+    .then((response) => {console.log("Deleted", response)})
+    .catch((error) => {console.log("failed", error.response.data)})
+  }
+  //functions
+  function loadCards(cardsData){
+    setCards(cardsData.saveData);
   }
   function updateCards(cardIndex, timeSheetIndex){
     let newArr = [...cards];
@@ -39,23 +58,28 @@ const App = () => {
       newArr[cardIndex].payCode = timesheetCode[timeSheetIndex].payCode;
     }
     setCards(newArr);
+    console.log(cardIndex);
   }
-  function AddCard(i, startTime, endTime, timeDetails){
-    return CardDetails(i, startTime, endTime,timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
+  function AddCard(startTime, endTime, timeDetails){
+    return CardDetails(startTime, endTime,timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
   };
   function ClockIn() {
-    var currentTime = new Date().toLocaleTimeString().substring(0, 5);
-    let newArr = [...cards]
-    if(newArr[index]){
-      if(newArr[index].startTime === "start" ){
-        newArr[index].startTime = currentTime
-      }else if(newArr[index].endTime === "end"){
-        newArr[index].endTime = currentTime;
-        setIndex(index + 1);
+    var currentTime = new Date().toLocaleTimeString().substring(0, 8);
+    let newArr = [...cards];
+    let lastItemIndex = newArr.length - 1;
+    console.log(newArr, lastItemIndex, newArr[lastItemIndex]);
+    if(newArr[lastItemIndex]){
+      if(newArr[lastItemIndex].startTime === "start" ){
+        newArr[lastItemIndex].startTime = currentTime
+      }else if(newArr[lastItemIndex].endTime === "end"){
+        newArr[lastItemIndex].endTime = currentTime;
+      }
+      else{
+        newArr.push(AddCard(currentTime, "end", timesheetCode.find(x => x.id === "Work")));
       }
     }
     else{
-      newArr.push(AddCard(index, currentTime, "end", timesheetCode.find(x => x.id === "Work")));
+      newArr.push(AddCard(currentTime, "end", timesheetCode.find(x => x.id === "Work")));
     }
     setCards(newArr);
   }
@@ -63,7 +87,11 @@ const App = () => {
     console.log("saving");
     PostSaveTimeSheet(cards);
   }
-  useEffect(() => {GetTimesheetCode();}, []);
+  function DeleteAll(date){
+    DeleteCardsUsingDate(date);
+    setCards([]);
+  }
+  useEffect(() => {GetTimesheetCode(); GetCardsUsingDate(today)}, []);
   return (
     <div className="App">
       <h1>TimeSheet</h1>
@@ -72,6 +100,7 @@ const App = () => {
         )}>Add</button> */}
       <button onClick={() => (ClockIn())}>Clock In</button>
       <button onClick={() => (Save())}>Save</button>
+      <button onClick={() => DeleteAll(today)}>Delete</button>
       <div className='Cards'>
            {cards.length > 0 ? cards.map((card) => (
            

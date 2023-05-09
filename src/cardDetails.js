@@ -1,6 +1,5 @@
 
-const CardDetails = (index, startTime, endTime,combo, payCode, projectCode ) => ({
-    index: index, 
+const CardDetails = (startTime, endTime,combo, payCode, projectCode ) => ({
     startTime: startTime,
     endTime: endTime,
     id: combo,
