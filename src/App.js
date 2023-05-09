@@ -95,9 +95,6 @@ const App = () => {
   return (
     <div className="App">
       <h1>TimeSheet</h1>
-      {/* <button onClick={() => (
-          AddCard(index, "start", "end", "timecode")
-        )}>Add</button> */}
       <button onClick={() => (ClockIn())}>Clock In</button>
       <button onClick={() => (Save())}>Save</button>
       <button onClick={() => DeleteAll(today)}>Delete</button>
