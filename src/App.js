@@ -12,7 +12,7 @@ const App = () => {
     const [cards, setCards] = useState([]);
     const [timesheetCode, setTimesheetCode] = useState();
     const [currentDate, setCurrentDate] = useState(new Date());
-
+    const [logMessage, setLogMessage] = useState("Hi");
     const api = new Api();
     //api
     const GetTimesheetCode = () => {
@@ -24,31 +24,48 @@ const App = () => {
     const PostSaveTimeSheet = async(saveData, date) => {
         var timesheetData = {id: date, saveData};
         api.postSaveTimesheet(timesheetData)
-        .then((response) => console.log("Data saved", response))
-        .catch((error)=> console.log("failed", error.response.data));
+        .then((response) => logger("Data saved", response))
+        .catch((error)=> logger("failed", error.response.data));
     }
     const GetCardsUsingDate = async(timesheetDateId) => {
         api.getCardsUsingDate(processDate(timesheetDateId))
         .then((response) => {
-            console.log("Got Cards", response.data);
+            logger("Got Cards", response.data);
             setCards(response.data.saveData);
             //todo: data not updating in cards 
         })
         .catch((error) => {
-            console.log("failed to fetch data", error.response)
+            if(error.response.data.lenght == 0){
+                
+                logger("No Data for this date", error.response)
+            }
+            else{
+                logger("No data received for this date", error.response)
+            }
             setCards([]);
         })
     }
     const DeleteCardsUsingDate = async(timesheetDateId) => {
         api.deleteCardsUsingDate(processDate(timesheetDateId))
-        .then((response) => {console.log("Deleted", response)})
-        .catch((error) => {console.log("failed", error.response.data)})
+        .then((response) => {logger("Deleted", response)})
+        .catch((error) => {logger("failed", error.response.data)})
     }
     //functions
     function processDate(date){
         return date.toISOString().substring(0, 10);
     }
-    function updateCards(card, timeSheetIndex){
+    const updateCardTime = (card, timeValue, type) =>{
+        let newArr = [...cards];
+        let cardIndex = newArr.findIndex(x => x.id === card);
+        if(newArr[cardIndex]){
+            if(type === "start")
+                newArr[cardIndex].startTime = timeValue;
+            if(type === "end")
+                newArr[cardIndex].endTime = timeValue;
+        }
+        setCards(newArr);
+    }
+    function updateTimeCode(card, timeSheetIndex){
         let newArr = [...cards];
         let cardIndex = newArr.findIndex(x => x.id === card);
         if(newArr[cardIndex]){
@@ -58,6 +75,7 @@ const App = () => {
         }
         setCards(newArr);
     }
+    
     function AddCard(startTime, endTime, timeDetails){
         return CardDetails(startTime, endTime,timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
     };
@@ -76,18 +94,18 @@ const App = () => {
             }
         }
         else{
-        newArr.push(AddCard(currentTime, "end", timesheetCode.find(x => x.id === "Work")));
+        newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
         }
         setCards(newArr);
     }
     function Save(){
         let lastCard = cards[cards.length -1];
         if(lastCard == null){
-            console.log("Last card not found");
+            logger("list of cards empty");
             return; 
         }
         if(lastCard.endTime === "end"){
-            console.log("timesheet not Complete");
+            logger("timesheet not Complete");
             return; 
         }
         api.getCardsUsingDate(processDate(currentDate))
@@ -96,7 +114,7 @@ const App = () => {
             .then(() => {
                 PostSaveTimeSheet(cards, processDate(currentDate));
             })
-            .catch((error) => {console.log("could save as delete error", error.message)});
+            .catch((error) => {logger("could save as delete error", error.message)});
         })
         .catch(() => {
             PostSaveTimeSheet(cards, processDate(currentDate));
@@ -106,11 +124,16 @@ const App = () => {
         DeleteCardsUsingDate(date);
         setCards([]);
     }
+    function logger(type, data){
+        console.log(type, data);
+        setLogMessage(type);
+    }
     useEffect(() => {GetTimesheetCode();}, []);
     useEffect(() => {GetCardsUsingDate(currentDate)},[currentDate])
     return (
         <div className="App">
         <h1>TimeSheet</h1>
+        <h2 className='Messages'>{logMessage}</h2>
         <button onClick={() => (ClockIn())}>Clock In</button>
         <button onClick={() => (Save())}>Save</button>
         <button onClick={() => (DeleteAll(currentDate))}>Delete</button>
@@ -118,7 +141,7 @@ const App = () => {
         <div className='Cards'>
             {cards.length > 0 ? cards.map((card) => (
                 <div className='card'>
-                <Card currentCard = {[card, timesheetCode, updateCards]}/>
+                <Card currentCard = {[card, timesheetCode, updateTimeCode, updateCardTime]}/>
                 </div>
                 )) : <p>Add Card</p>         
             }
