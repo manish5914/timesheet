@@ -6,7 +6,6 @@ import Card from './Card';
 import Api from './api';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { render } from 'react-dom';
 
 const App = () => {
 
