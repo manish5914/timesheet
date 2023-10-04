@@ -16,9 +16,13 @@ const Card = ({currentCard}) =>
     const handleSelect = (e) => {
         updateTimeCode(card.id, parseInt(e));
     }
-    const setTime = (timeValue, type) => {
-        console.log("df", timeValue, type);
-        updateCardTime(card.id, timeValue, "start");
+    const setStartTime = (timeValue) => {
+        console.log("df", timeValue);
+        updateCardTime(card.id, timeValue ? timeValue : "00:00:00", "start");
+    }
+    const setEndTime = (timeValue) => {
+        console.log("df", timeValue);
+        updateCardTime(card.id,  timeValue ? timeValue : "00:00:00", "end");
     }
     useEffect(() => {}, [card]);
     return (
@@ -27,10 +31,10 @@ const Card = ({currentCard}) =>
                 <p>{card.startTime ? card.startTime : "StartTime"}</p>
             </div>
             <div>
-                <TimePicker onChange={setTime} value = {card.startTime ? card.startTime : "00:00:00"} format = "HH:mm:ss"/>
+                <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : "00:00:00"} format = "HH:mm:ss"/>
             </div>
             <div>
-                <TimePicker onChange = {setTime} value = {card.endTime ? card.endTime : "00:00:00"} format = "HH:mm:ss"/>
+                <TimePicker onChange = {setEndTime} value = {card.endTime ? card.endTime : "00:00:00"} format = "HH:mm:ss"/>
             </div>
 
             <div>

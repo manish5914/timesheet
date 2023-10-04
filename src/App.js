@@ -55,48 +55,54 @@ const App = () => {
         return date.toISOString().substring(0, 10);
     }
     const updateCardTime = (card, timeValue, type) =>{
-        let newArr = [...cards];
-        let cardIndex = newArr.findIndex(x => x.id === card);
-        if(newArr[cardIndex]){
-            if(type === "start")
-                newArr[cardIndex].startTime = timeValue;
-            if(type === "end")
-                newArr[cardIndex].endTime = timeValue;
-        }
-        setCards(newArr);
+        setCards((cardValue) => {
+            let newArr = [...cardValue];
+            let cardIndex = newArr.findIndex(x => x.id === card);
+            if(newArr[cardIndex]){
+                if(type === "start")
+                    newArr[cardIndex].startTime = timeValue;
+                if(type === "end")
+                    newArr[cardIndex].endTime = timeValue;
+            }
+            return newArr;
+        });
     }
-    function updateTimeCode(card, timeSheetIndex){
-        let newArr = [...cards];
-        let cardIndex = newArr.findIndex(x => x.id === card);
-        if(newArr[cardIndex]){
-            newArr[cardIndex].combo = timesheetCode[timeSheetIndex].id;
-            newArr[cardIndex].projectCode = timesheetCode[timeSheetIndex].projectCode;
-            newArr[cardIndex].payCode = timesheetCode[timeSheetIndex].payCode;
-        }
-        setCards(newArr);
+    const updateTimeCode = (card, timeSheetIndex) => {
+        setCards((cardValue) => {
+            let newArr = [...cardValue];
+            let cardIndex = newArr.findIndex(x => x.id === card);
+            if(newArr[cardIndex]){
+                newArr[cardIndex].combo = timesheetCode[timeSheetIndex].id;
+                newArr[cardIndex].projectCode = timesheetCode[timeSheetIndex].projectCode;
+                newArr[cardIndex].payCode = timesheetCode[timeSheetIndex].payCode;
+            }
+            return newArr;
+        });
     }
     
     function AddCard(startTime, endTime, timeDetails){
         return CardDetails(startTime, endTime,timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
     };
     function ClockIn() {
-        var currentTime = new Date().toLocaleTimeString().substring(0, 8);
-        let newArr = [...cards];
-        let lastItemIndex = newArr.length - 1;
-        if(newArr[lastItemIndex]){
-            if(newArr[lastItemIndex].startTime === "start" ){
-                newArr[lastItemIndex].startTime = currentTime
-            }else if(newArr[lastItemIndex].endTime === "end"){
-                newArr[lastItemIndex].endTime = currentTime;
+        setCards((cardValue) => {
+            var currentTime = new Date().toLocaleTimeString().substring(0, 8);
+            let newArr = [...cardValue];
+            let lastItemIndex = newArr.length - 1;
+            if(newArr[lastItemIndex]){
+                if(newArr[lastItemIndex].startTime === "start" ){
+                    newArr[lastItemIndex].startTime = currentTime
+                }else if(newArr[lastItemIndex].endTime === "00:00:00"){
+                    newArr[lastItemIndex].endTime = currentTime;
+                }
+                else{
+                    newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
+                }
             }
             else{
-                newArr.push(AddCard(currentTime, "end", timesheetCode.find(x => x.id === "Work")));
+            newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
             }
-        }
-        else{
-        newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
-        }
-        setCards(newArr);
+            return newArr;
+        });
     }
     function Save(){
         let lastCard = cards[cards.length -1];
@@ -104,7 +110,7 @@ const App = () => {
             logger("list of cards empty");
             return; 
         }
-        if(lastCard.endTime === "end"){
+        if(lastCard.endTime === "00:00:00"){
             logger("timesheet not Complete");
             return; 
         }
@@ -138,12 +144,13 @@ const App = () => {
         <button onClick={() => (Save())}>Save</button>
         <button onClick={() => (DeleteAll(currentDate))}>Delete</button>
         <DatePicker selected={currentDate} onChange={(date) => {setCurrentDate(date)}}/>
+        <div>{console.log(cards)}</div>
         <div className='Cards'>
-            {cards.length > 0 ? cards.map((card) => (
+            { (cards && cards.length > 0) ? (cards.map((card) => (
                 <div className='card'>
                 <Card currentCard = {[card, timesheetCode, updateTimeCode, updateCardTime]}/>
                 </div>
-                )) : <p>Add Card</p>         
+                )) ): <p>Add Card</p>         
             }
         </div>
         </div>
