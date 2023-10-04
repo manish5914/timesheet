@@ -1,11 +1,13 @@
-import {v4 as uuid} from 'uuid';
-const CardDetails = (startTime, endTime,combo, payCode, projectCode ) => ({
-    id: uuid(),
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var uuid_1 = require("uuid");
+var CardDetails = function (startTime, endTime, combo, payCode, projectCode) { return ({
+    id: (0, uuid_1.v4)(),
     startTime: startTime,
     endTime: endTime,
     combo: combo,
-    payCode: payCode, 
+    payCode: payCode,
     projectCode: projectCode
-})
-
-export default CardDetails;
+}); };
+exports.default = CardDetails;
+//# sourceMappingURL=cardDetails.js.map

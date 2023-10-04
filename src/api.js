@@ -1,26 +1,32 @@
-import axios from 'axios';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var axios_1 = require("axios");
 //json-server --watch --port 8000 timesheet.json
-export default class Api{
-    constructor() {
+var Api = /** @class */ (function () {
+    function Api() {
+        var _this = this;
+        this.init = function () {
+            _this.client = axios_1.default.create({
+                baseURL: _this.timesheet_api,
+                timeout: 5000
+            });
+            return _this.client;
+        };
+        this.getTimesheetCodes = function () {
+            return _this.init().get("/combo");
+        };
+        this.getCardsUsingDate = function (timesheetDate) {
+            return _this.init().get("/timesheet/" + timesheetDate);
+        };
+        this.postSaveTimesheet = function (saveData) {
+            return _this.init().post("/timesheet", saveData);
+        };
+        this.deleteCardsUsingDate = function (timesheetDate) {
+            return _this.init().delete("/timesheet/" + timesheetDate);
+        };
         this.timesheet_api = "http://localhost:8000";
     }
-    init = () => {
-        this.client = axios.create({
-            baseURL: this.timesheet_api, 
-            timeout: 5000
-        })
-        return this.client;
-    }
-    getTimesheetCodes = () => {
-        return this.init().get("/combo");
-    }
-    getCardsUsingDate = (timesheetDate) => {
-        return this.init().get("/timesheet/" + timesheetDate);
-    }
-    postSaveTimesheet = (saveData) => {
-        return this.init().post("/timesheet", saveData);
-    } 
-    deleteCardsUsingDate = (timesheetDate) => {
-        return this.init().delete("/timesheet/" + timesheetDate);
-    } 
-}
+    return Api;
+}());
+exports.default = Api;
+//# sourceMappingURL=api.js.map
