@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {useEffect, useState} from 'react';
 import './App.css';
 import CardDetails from './cardDetails';
@@ -7,9 +7,15 @@ import Card from './Card';
 import Api from './api';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {AxiosResponse, AxiosError} from "axios";
 
 interface App{
 
+}
+
+enum DefaultTime {
+    startTime = "00:00:00",
+    endTime = "00:00:00"
 }
 
 const App = () => {
@@ -22,24 +28,24 @@ const App = () => {
     //api
     const GetTimesheetCode = () => {
         api.getTimesheetCodes()
-        .then(response => (
+        .then((response:AxiosResponse) => (
             setTimesheetCode(response.data)
         ));
     }
     const PostSaveTimeSheet = async(saveData: CardDetails[], date: string) => {
         var timesheetData = {id: date, saveData};
         api.postSaveTimesheet(timesheetData)
-        .then((response) => logger("Data saved", response))
-        .catch((error)=> logger("failed", error.response.data));
+        .then((response:AxiosResponse) => logger("Data saved", response))
+        .catch((error:any)=> logger("failed", error.response.data));
     }
     const GetCardsUsingDate = async(timesheetDateId: Date) => {
         api.getCardsUsingDate(processDate(timesheetDateId))
-        .then((response) => {
+        .then((response:AxiosResponse) => {
             logger("Got Cards", response.data);
             setCards(response.data.saveData);
             //todo: data not updating in cards 
         })
-        .catch((error) => {
+        .catch((error:any) => {
             if(error.response.data.lenght == 0){
                 
                 logger("No Data for this date", error.response)
@@ -50,13 +56,13 @@ const App = () => {
             setCards([]);
         })
     }
-    const DeleteCardsUsingDate = async(timesheetDateId) => {
+    const DeleteCardsUsingDate = async(timesheetDateId: Date) => {
         api.deleteCardsUsingDate(processDate(timesheetDateId))
-        .then((response) => {logger("Deleted", response)})
-        .catch((error) => {logger("failed", error.response.data)})
+        .then((response:AxiosResponse) => {logger("Deleted", response)})
+        .catch((error:any) => {logger("failed", error.response.data)})
     }
     //functions
-    function processDate(date: Date){
+    function processDate(date: Date): string{
         return date.toISOString().substring(0, 10);
     }
     const updateCardTime = (card: CardDetails, timeValue: string, type: string) =>{
@@ -74,6 +80,7 @@ const App = () => {
     }
     const updateTimeCode = (card: CardDetails, timeSheetIndex: number) => {
         setCards((cardValue) => {
+            debugger;
             let newArr = [...cardValue];
             let cardIndex = newArr.findIndex(x => x.id === card.id);
             if(newArr[cardIndex]){
@@ -85,8 +92,11 @@ const App = () => {
         });
     }
     
-    function AddCard(startTime, endTime, timeDetails){
-        return CardDetails(startTime, endTime,timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
+    function AddCard(startTime: string, endTime: string, timeDetails?: TimeSheetCodes): CardDetails {
+        if(timeDetails)
+            return CardDetails(startTime, endTime, timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
+        else
+            return CardDetails(DefaultTime.startTime, DefaultTime.endTime, "null", "Work", "Work");
     };
     function ClockIn() {
         setCards((cardValue) => {
@@ -96,7 +106,8 @@ const App = () => {
             if(newArr[lastItemIndex]){
                 if(newArr[lastItemIndex].startTime === "start" ){
                     newArr[lastItemIndex].startTime = currentTime
-                }else if(newArr[lastItemIndex].endTime === "00:00:00"){
+                }
+                else if(newArr[lastItemIndex].endTime === "00:00:00"){
                     newArr[lastItemIndex].endTime = currentTime;
                 }
                 else{
@@ -104,7 +115,7 @@ const App = () => {
                 }
             }
             else{
-            newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
+                newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
             }
             return newArr;
         });
@@ -125,7 +136,7 @@ const App = () => {
             .then(() => {
                 PostSaveTimeSheet(cards, processDate(currentDate));
             })
-            .catch((error) => {logger("could save as delete error", error.message)});
+            .catch((error: any) => {logger("could save as delete error", error.message)});
         })
         .catch(() => {
             PostSaveTimeSheet(cards, processDate(currentDate));
@@ -135,7 +146,7 @@ const App = () => {
         DeleteCardsUsingDate(date);
         setCards([]);
     }
-    function logger(type, data){
+    function logger(type: string , data: any){
         console.log(type, data);
         setLogMessage(type);
     }
@@ -148,7 +159,7 @@ const App = () => {
         <button onClick={() => (ClockIn())}>Clock In</button>
         <button onClick={() => (Save())}>Save</button>
         <button onClick={() => (DeleteAll(currentDate))}>Delete</button>
-        <DatePicker selected={currentDate} onChange={(date) => {setCurrentDate(date)}}/>
+        <DatePicker selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>
         <div className='Cards'>
             { (cards && cards.length > 0) ? (cards.map((card) => (
                 <div className='card'>

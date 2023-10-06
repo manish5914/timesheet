@@ -1,16 +1,13 @@
 import * as React from "react";
 import {useState, useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown'
+import {Dropdown, DropdownButton} from "react-bootstrap"
 import TimePicker from "react-time-picker";
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
-interface Card{
-    currentCard: 
-}
+import TimeSheetCodes from "./timeSheetCode";
 
-const Card = ({currentCard}) =>
+    const Card = ({currentCard}:any) =>
 {
     const [card, setCard]= useState(currentCard[0]);
     const [timeCodes, setTimeCodes] = useState(currentCard[1]);
@@ -49,7 +46,7 @@ const Card = ({currentCard}) =>
             <div>
                 <p>{card.projectCode ? card.projectCode : "No Project Code Selected"}</p>
             </div>
-                   {timeCodes ?  (<DropdownButton title="Select a Combo" onSelect={handleSelect}> {timeCodes.map((timecode, index) => <Dropdown.Item eventKey={index}>{timecode.id}</Dropdown.Item>)} </DropdownButton>):  <div><p>No Combo</p></div>}               
+                   {timeCodes ?  (<DropdownButton title="Select a Combo" onSelect={handleSelect}> {timeCodes.map((timecode: TimeSheetCodes, index: string) => <Dropdown.Item eventKey={index}>{timecode.id}</Dropdown.Item>)} </DropdownButton>):  <div><p>No Combo</p></div>}               
         </div>
     )
 }

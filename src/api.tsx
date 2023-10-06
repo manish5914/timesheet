@@ -1,14 +1,18 @@
-import axios, { Axios, AxiosInstance } from 'axios';
+import axios, {AxiosInstance, CreateAxiosDefaults} from 'axios';
 //json-server --watch --port 8000 timesheet.json
 export default class Api{
 
     timesheet_api: string;
     client: AxiosInstance;
-    
+    config: CreateAxiosDefaults;
+
     constructor() {
         this.timesheet_api = "http://localhost:8000";
+        this.config = {
+            baseURL: this.timesheet_api        }
     }
-    init = () => {
+    init = () => {        
+        let a = axios.create(this.config);
         this.client = axios.create({
             baseURL: this.timesheet_api, 
             timeout: 5000

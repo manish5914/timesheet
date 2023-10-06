@@ -3,7 +3,7 @@
       "jsx": "react",
       "lib": ["es6", "dom"],
       "rootDir": "src",
-      "module": "commonjs",
+      "module": "umd",
       "target": "es5",
       "sourceMap": true,
       "moduleResolution": "node",
@@ -11,9 +11,12 @@
       "noImplicitThis": true,
       "noImplicitAny": true,
       "strictNullChecks": true,
+      "esModuleInterop": true
     },
     "include": [
-      "./src"
+      "./src/*.tsx",
+      "./src/*.ts"
+
     ],
     "exclude": [
       "node_modules",
