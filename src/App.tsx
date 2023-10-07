@@ -9,16 +9,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {AxiosResponse, AxiosError} from "axios";
 
-interface App{
-
-}
-
 enum DefaultTime {
     startTime = "00:00:00",
     endTime = "00:00:00"
 }
 
-const App = () => {
+const App = (): React.ReactElement => {
 
     const [cards, setCards] = useState<CardDetails[]>([]);
     const [timesheetCode, setTimesheetCode] = useState<TimeSheetCodes[]>([]);
@@ -46,8 +42,7 @@ const App = () => {
             //todo: data not updating in cards 
         })
         .catch((error:any) => {
-            if(error.response.data.lenght == 0){
-                
+            if(error.response.data.lenght === 0){
                 logger("No Data for this date", error.response)
             }
             else{
@@ -65,10 +60,10 @@ const App = () => {
     function processDate(date: Date): string{
         return date.toISOString().substring(0, 10);
     }
-    const updateCardTime = (card: CardDetails, timeValue: string, type: string) =>{
+    const updateCardTime = (cardUUID: string, timeValue: string, type: string) =>{
         setCards((cardValue) => {
             let newArr = [...cardValue];
-            let cardIndex = newArr.findIndex(x => x.id === card.id);
+            let cardIndex = newArr.findIndex(x => x.id === cardUUID);
             if(newArr[cardIndex]){
                 if(type === "start")
                     newArr[cardIndex].startTime = timeValue;
@@ -78,11 +73,10 @@ const App = () => {
             return newArr;
         });
     }
-    const updateTimeCode = (card: CardDetails, timeSheetIndex: number) => {
+    const updateTimeCode = (cardUUID: string, timeSheetIndex: number) => {
         setCards((cardValue) => {
-            debugger;
             let newArr = [...cardValue];
-            let cardIndex = newArr.findIndex(x => x.id === card.id);
+            let cardIndex = newArr.findIndex(x => x.id === cardUUID);
             if(newArr[cardIndex]){
                 newArr[cardIndex].combo = timesheetCode[timeSheetIndex].id;
                 newArr[cardIndex].projectCode = timesheetCode[timeSheetIndex].projectCode;

@@ -11,8 +11,7 @@ export default class Api{
         this.config = {
             baseURL: this.timesheet_api        }
     }
-    init = () => {        
-        let a = axios.create(this.config);
+    init = () => { 
         this.client = axios.create({
             baseURL: this.timesheet_api, 
             timeout: 5000
