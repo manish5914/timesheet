@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import './App.css';
-import CardDetails from './cardDetails';
+import CardDetails, { CreateCard } from './cardDetails';
 import TimeSheetCodes from './timeSheetCode';
 import Card from './Card';
 import Api from './api';
@@ -79,9 +79,9 @@ const App = (): React.ReactElement => {
     
     const AddCard = (startTime: string, endTime: string, timeDetails?: TimeSheetCodes): CardDetails  => {
         if(timeDetails)
-            return CardDetails(startTime, endTime, timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
+            return CreateCard(startTime, endTime, timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
         else
-            return CardDetails(DefaultTime.startTime, DefaultTime.endTime, "null", "Work", "Work");
+            return CreateCard(DefaultTime.startTime, DefaultTime.endTime, "null", "Work", "Work");
     };
     const ClockIn = (): void => {
         setCards((cardValue) => {

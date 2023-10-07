@@ -8,7 +8,9 @@ type CardDetails = {
     payCode: string;
     projectCode: string;
 }
-const CardDetails = (startTime: string, endTime: string, combo: string, payCode:string, projectCode:string ) => ({
+export default CardDetails;
+
+export const CreateCard = (startTime: string, endTime: string, combo: string, payCode:string, projectCode:string ): CardDetails => ({
     id: uuid(),
     startTime: startTime,
     endTime: endTime,
@@ -16,5 +18,3 @@ const CardDetails = (startTime: string, endTime: string, combo: string, payCode:
     payCode: payCode, 
     projectCode: projectCode
 })
-
-export default CardDetails;
