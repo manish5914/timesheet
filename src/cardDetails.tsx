@@ -1,6 +1,6 @@
 import {v4 as uuid} from 'uuid';
 
-interface CardDetails{
+type CardDetails = {
     id: string;
     startTime: string;
     endTime: string;

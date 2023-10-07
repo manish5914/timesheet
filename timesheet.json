@@ -128,9 +128,33 @@
           "id": "018ccbf7-d5cc-49d1-a3a3-53366407cf3b",
           "startTime": "23:48:37",
           "endTime": "23:48:39",
-          "combo": "Bug",
+          "combo": "PBI",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        },
+        {
+          "id": "a04b1ae0-1127-409f-8a80-34cde7f3c825",
+          "startTime": "00:27:46",
+          "endTime": "00:27:46",
+          "combo": "Grooming",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        },
+        {
+          "id": "73115238-2fb2-49c1-aada-568c21c2caa1",
+          "startTime": "00:27:47",
+          "endTime": "00:27:49",
+          "combo": "Grooming",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        },
+        {
+          "id": "82e7752c-0ae4-471a-8587-3c2d02dc94a5",
+          "startTime": "01:14:07",
+          "endTime": "01:14:08",
+          "combo": "Team Meeting",
           "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
+          "projectCode": "DF - Operations"
         }
       ]
     }

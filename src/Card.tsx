@@ -6,27 +6,29 @@ import TimePicker from "react-time-picker";
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 import TimeSheetCodes from "./timeSheetCode";
+import CardDetails from "./cardDetails";
+import {Log} from "./Utility"
 
-    const Card = ({currentCard}:any) =>
+const Card = ({currentCard}:any): React.ReactElement =>
 {
-    const [card, setCard]= useState(currentCard[0]);
-    const [timeCodes, setTimeCodes] = useState(currentCard[1]);
-    const updateTimeCode = currentCard[2];
-    const updateCardTime = currentCard[3];
+    const [card]= useState<CardDetails>(currentCard[0]);
+    const [timeCodes] = useState<TimeSheetCodes[]>(currentCard[1]);
+    const updateTimeCode: Function = currentCard[2];
+    const updateCardTime: Function = currentCard[3];
     const handleSelect = (e: string) => {
         updateTimeCode(card.id, parseInt(e));
     }
     const setStartTime = (timeValue: string) => {
-        console.log("df", timeValue);
+        Log("setStartTime", timeValue);
         updateCardTime(card.id, timeValue ? timeValue : "00:00:00", "start");
     }
     const setEndTime = (timeValue: string) => {
-        console.log("df", timeValue);
+        Log("setEndTime", timeValue);
         updateCardTime(card.id,  timeValue ? timeValue : "00:00:00", "end");
     }
     useEffect(() => {}, [card]);
     return (
-        <div className="Card">
+        <div className="Card" key = {card.id}>
             <div>
                 <p>{card.startTime ? card.startTime : "StartTime"}</p>
             </div>
@@ -46,7 +48,20 @@ import TimeSheetCodes from "./timeSheetCode";
             <div>
                 <p>{card.projectCode ? card.projectCode : "No Project Code Selected"}</p>
             </div>
-                   {timeCodes ?  (<DropdownButton title="Select a Combo" onSelect={handleSelect}> {timeCodes.map((timecode: TimeSheetCodes, index: string) => <Dropdown.Item eventKey={index}>{timecode.id}</Dropdown.Item>)} </DropdownButton>):  <div><p>No Combo</p></div>}               
+                   
+            {
+                timeCodes ? (
+                    <DropdownButton title="Select a Combo" onSelect={handleSelect}> 
+                        {timeCodes.map((timecode: TimeSheetCodes, index: number) => 
+                            <Dropdown.Item eventKey={index} key={index}>
+                                {timecode.id}
+                            </Dropdown.Item>)} 
+                    </DropdownButton>
+                )
+                :<div>
+                    <p>No Combo</p>
+                </div>
+            }               
         </div>
     )
 }
