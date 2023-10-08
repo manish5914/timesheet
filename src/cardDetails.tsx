@@ -10,8 +10,8 @@ type CardDetails = {
 }
 export default CardDetails;
 
-export const CreateCard = (startTime: string, endTime: string, combo: string, payCode:string, projectCode:string ): CardDetails => ({
-    id: uuid(),
+export const CreateCard = (startTime: string, endTime: string, combo: string, payCode:string, projectCode:string, id?: string): CardDetails => ({
+    id: id ? id : uuid(),
     startTime: startTime,
     endTime: endTime,
     combo: combo,

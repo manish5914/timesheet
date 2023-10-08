@@ -7,36 +7,46 @@ import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 import TimeSheetCodes from "./timeSheetCode";
 import CardDetails from "./cardDetails";
-import {Log} from "./Utility"
+import {CalculateHours, DEFAULT_TIME, DEFAULT_TIME_FORMAT, Hours, Log} from "./Utility"
 
 const Card = ({currentCard}:any): React.ReactElement =>
 {
     const [card]= useState<CardDetails>(currentCard[0]);
     const [timeCodes] = useState<TimeSheetCodes[]>(currentCard[1]);
     const updateTimeCode: Function = currentCard[2];
-    const updateCardTime: Function = currentCard[3];
+    const UpdateCardTime: Function = currentCard[3];
+    const DeleteCard: Function = currentCard[4];
+    const [cardHours, setHours] = useState<number>(0);
+
     const handleSelect = (e: string) => {
         updateTimeCode(card.id, parseInt(e));
     }
     const setStartTime = (timeValue: string) => {
         Log("setStartTime", timeValue);
-        updateCardTime(card.id, timeValue ? timeValue : "00:00:00", "start");
+        UpdateCardTime(card.id, timeValue ? timeValue : DEFAULT_TIME, "start");
+        UpdateHours();
     }
     const setEndTime = (timeValue: string) => {
         Log("setEndTime", timeValue);
-        updateCardTime(card.id,  timeValue ? timeValue : "00:00:00", "end");
+        UpdateCardTime(card.id,  timeValue ? timeValue : DEFAULT_TIME, "end");
+        UpdateCardTime ();
     }
-    useEffect(() => {}, [card]);
+    const UpdateHours = (): void => {
+        setHours(() => {
+            return card.startTime && card.endTime ? CalculateHours(card.startTime, card.endTime) : Hours.ZeroHour;
+        });
+    }
+    const Remove = () =>{
+        DeleteCard(card.id);
+    }
+    useEffect(() => {}, [card, cardHours]);
     return (
         <div className="Card" key = {card.id}>
             <div>
-                <p>{card.startTime ? card.startTime : "StartTime"}</p>
+                <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
             </div>
             <div>
-                <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : "00:00:00"} format = "HH:mm:ss"/>
-            </div>
-            <div>
-                <TimePicker onChange = {setEndTime} value = {card.endTime ? card.endTime : "00:00:00"} format = "HH:mm:ss"/>
+                <TimePicker onChange = {setEndTime} value = {card.endTime ? card.endTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
             </div>
 
             <div>
@@ -61,7 +71,8 @@ const Card = ({currentCard}:any): React.ReactElement =>
                 :<div>
                     <p>No Combo</p>
                 </div>
-            }               
+            }   
+            <button onClick={() => Remove()}>Remove</button>            
         </div>
     )
 }

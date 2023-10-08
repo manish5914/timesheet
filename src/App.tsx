@@ -8,7 +8,7 @@ import Api from './api';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {AxiosResponse, AxiosError} from "axios";
-import {DefaultTime, Log, ProcessDate} from "./Utility";
+import { DEFAULT_TIME , DEFAULT_TIMESHEET_CODE, Log, ProcessDate} from "./Utility";
 
 const App = (): React.ReactElement => { 
     const [cards, setCards] = useState<CardDetails[]>([]);
@@ -30,10 +30,15 @@ const App = (): React.ReactElement => {
         .catch((error:AxiosError)=> Log("failed", error, setLogMessage));
     }
     const GetCardsUsingDate = async(timesheetDateId: Date) => {
+        setCards([]);
         api.getCardsUsingDate(ProcessDate(timesheetDateId))
         .then((response:AxiosResponse) => {
             Log("Got Cards", response.data, setLogMessage);
-            setCards(response.data.saveData);
+            setCards(() => {
+                let newArr: CardDetails[] = [];
+                response.data.saveData.map((card:CardDetails) => newArr.push(CreateCard(card.startTime, card.endTime, card.combo, card.payCode, card.projectCode, card.id)));
+                return newArr;
+            });
         })
         .catch((error:AxiosError) => {
             if(error.code && error.code === AxiosError.ERR_BAD_REQUEST)
@@ -51,7 +56,7 @@ const App = (): React.ReactElement => {
     }
     //functions
 
-    const updateCardTime = (cardUUID: string, timeValue: string, type: string): void =>{
+    const UpdateCardTime = (cardUUID: string, timeValue: string, type: string): void =>{
         setCards((cardValue) => {
             let newArr = [...cardValue];
             let cardIndex = newArr.findIndex(x => x.id === cardUUID);
@@ -64,7 +69,7 @@ const App = (): React.ReactElement => {
             return newArr;
         });
     }
-    const updateTimeCode = (cardUUID: string, timeSheetIndex: number): void => {
+    const UpdateTimeCode = (cardUUID: string, timeSheetIndex: number): void => {
         setCards((cardValue) => {
             let newArr = [...cardValue];
             let cardIndex = newArr.findIndex(x => x.id === cardUUID);
@@ -81,7 +86,7 @@ const App = (): React.ReactElement => {
         if(timeDetails)
             return CreateCard(startTime, endTime, timeDetails.id, timeDetails.projectCode, timeDetails.payCode);
         else
-            return CreateCard(DefaultTime.startTime, DefaultTime.endTime, "null", "Work", "Work");
+            return CreateCard(DEFAULT_TIME, DEFAULT_TIME, "null", DEFAULT_TIMESHEET_CODE,  DEFAULT_TIMESHEET_CODE);
     };
     const ClockIn = (): void => {
         setCards((cardValue) => {
@@ -92,15 +97,15 @@ const App = (): React.ReactElement => {
                 if(newArr[lastItemIndex].startTime === "start" ){
                     newArr[lastItemIndex].startTime = currentTime
                 }
-                else if(newArr[lastItemIndex].endTime === "00:00:00"){
+                else if(newArr[lastItemIndex].endTime === DEFAULT_TIME){
                     newArr[lastItemIndex].endTime = currentTime;
                 }
                 else{
-                    newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
+                    newArr.push(AddCard(currentTime, DEFAULT_TIME, timesheetCode.find(x => x.id === DEFAULT_TIMESHEET_CODE)));
                 }
             }
             else{
-                newArr.push(AddCard(currentTime, "00:00:00", timesheetCode.find(x => x.id === "Work")));
+                newArr.push(AddCard(currentTime, DEFAULT_TIME, timesheetCode.find(x => x.id === DEFAULT_TIMESHEET_CODE)));
             }
             return newArr;
         });
@@ -131,8 +136,16 @@ const App = (): React.ReactElement => {
         DeleteCardsUsingDate(date);
         setCards([]);
     }
-    useEffect(() => {GetTimesheetCode();}, []);
-    useEffect(() => {GetCardsUsingDate(currentDate)},[currentDate])
+    const DeleteCard = (cardId: string): void => {
+        //TODO: Card being removed properly in array, NOT updating in UI
+        setCards((cardList) => {
+            let newArr = [...cardList];
+            return newArr.filter((card) => !(card.id === cardId));
+        });
+        Log("Delete Card", cardId);
+    }
+    useEffect(() => {GetTimesheetCode()}, []);
+    useEffect(() => {GetCardsUsingDate(currentDate)}, [currentDate]);
     return (
         <div className="App">
         <h1>TimeSheet</h1>
@@ -143,7 +156,7 @@ const App = (): React.ReactElement => {
         <DatePicker selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>
         <div className='Cards'>
             { (cards && cards.length > 0) ? (cards.map((card, index) => (
-                <Card currentCard = {[card, timesheetCode, updateTimeCode, updateCardTime]} key = {index}/>
+                <Card currentCard = {[card, timesheetCode, UpdateTimeCode, UpdateCardTime, DeleteCard]} key = {index}/>
                 )) ): <p>Add Card</p>         
             }
         </div>
@@ -152,3 +165,4 @@ const App = (): React.ReactElement => {
 }
 
 export default App;
+
