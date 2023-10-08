@@ -1,0 +1,46 @@
+.Card {
+    background-color: #212426;
+    width: 250px;   
+    margin-left : 10px;
+    margin-top: 10px;
+    border-radius: 15px;
+  }
+  
+.Card .combo{
+    color: white;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 30px;
+    justify-content: left;
+}
+
+.Card .paycode {
+    
+    color: white;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 22px;
+    max-width: 250px;;
+}
+
+.Card .projectCode {
+    color: white;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 18px;
+    text-justify: auto;
+    overflow-wrap: break-word;
+    margin: 10px;
+}
+
+.Card .startTime{
+    color: white;
+    margin: 10px;
+    text-align: right;
+}
+
+.Card .endTime{
+    color: white;
+    margin: 10px;
+    text-align: right;
+}

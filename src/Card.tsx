@@ -8,6 +8,7 @@ import 'react-clock/dist/Clock.css'
 import TimeSheetCodes from "./timeSheetCode";
 import CardDetails from "./cardDetails";
 import {CalculateHours, DEFAULT_TIME, DEFAULT_TIME_FORMAT, Hours, Log} from "./Utility"
+import "./Card.css"
 
 const Card = ({currentCard}:any): React.ReactElement =>
 {
@@ -42,21 +43,20 @@ const Card = ({currentCard}:any): React.ReactElement =>
     useEffect(() => {}, [card, cardHours]);
     return (
         <div className="Card" key = {card.id}>
-            <div>
+            <div className ="combo">
+                {card.combo ? card.combo: "No Combo Selected"}
+            </div>
+            <div className ="paycode">
+                {card.payCode ? card.payCode: "No PayCode Selected"}
+            </div>
+            <div className="projectCode">
+                {card.projectCode ? card.projectCode : "No Project Code Selected"}
+            </div>
+            <div className="startTime">
                 <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
             </div>
-            <div>
+            <div className="endTime">
                 <TimePicker onChange = {setEndTime} value = {card.endTime ? card.endTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
-            </div>
-
-            <div>
-                <p>{card.combo ? card.combo: "No Combo Selected"}</p>
-            </div>
-            <div>
-                <p>{card.payCode ? card.payCode: "No PayCode Selected"}</p>
-            </div>
-            <div>
-                <p>{card.projectCode ? card.projectCode : "No Project Code Selected"}</p>
             </div>
                    
             {

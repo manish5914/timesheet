@@ -148,18 +148,18 @@ const App = (): React.ReactElement => {
     useEffect(() => {GetCardsUsingDate(currentDate)}, [currentDate]);
     return (
         <div className="App">
-        <h1>TimeSheet</h1>
-        <h2 className='Messages'>{logMessage}</h2>
-        <button onClick={() => (ClockIn())}>Clock In</button>
-        <button onClick={() => (Save())}>Save</button>
-        <button onClick={() => (DeleteAll(currentDate))}>Delete</button>
-        <DatePicker selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>
-        <div className='Cards'>
-            { (cards && cards.length > 0) ? (cards.map((card, index) => (
-                <Card currentCard = {[card, timesheetCode, UpdateTimeCode, UpdateCardTime, DeleteCard]} key = {index}/>
-                )) ): <p>Add Card</p>         
-            }
-        </div>
+            <h1>TimeSheet</h1>
+            <h2 className='Messages'>{logMessage}</h2>
+            <button onClick={() => (ClockIn())}>Clock In</button>
+            <button onClick={() => (Save())}>Save</button>
+            <button onClick={() => (DeleteAll(currentDate))}>Delete</button>
+            <DatePicker selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>
+            <div className='Cards'>
+                { (cards && cards.length > 0) ? (cards.map((card, index) => (
+                    <Card currentCard = {[card, timesheetCode, UpdateTimeCode, UpdateCardTime, DeleteCard]} key = {index}/>
+                    )) ): <p>Add Card</p>         
+                }
+            </div>
         </div>
     );
 }
