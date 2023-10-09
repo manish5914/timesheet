@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import './App.css';
+import './css/App.css';
 import CardDetails, { CreateCard } from './cardDetails';
 import TimeSheetCodes from './timeSheetCode';
 import Card from './Card';
@@ -150,10 +150,26 @@ const App = (): React.ReactElement => {
         <div className="App">
             <h1>TimeSheet</h1>
             <h2 className='Messages'>{logMessage}</h2>
-            <button onClick={() => (ClockIn())}>Clock In</button>
-            <button onClick={() => (Save())}>Save</button>
-            <button onClick={() => (DeleteAll(currentDate))}>Delete</button>
-            <DatePicker selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>
+            <nav className="navbar navbar-expand-lg sticky-top bg-body-tertiary bg-dark" data-bs-theme="dark">
+                <div className="container-fluid">
+                    <div className="collapse navbar-collapse" id="navbarText">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <button className = "btn btn-primary navbtn" onClick={() => (ClockIn())}>Clock In</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className = "btn btn-primary navbtn" onClick={() => (Save())}>Save</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className = "btn btn-primary navbtn" onClick={() => (DeleteAll(currentDate))}>Delete</button>
+                        </li>
+                        <li>
+                            <DatePicker className="datePicker" selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </nav>
             <div className='Cards'>
                 { (cards && cards.length > 0) ? (cards.map((card, index) => (
                     <Card currentCard = {[card, timesheetCode, UpdateTimeCode, UpdateCardTime, DeleteCard]} key = {index}/>

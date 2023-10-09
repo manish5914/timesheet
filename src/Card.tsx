@@ -8,7 +8,7 @@ import 'react-clock/dist/Clock.css'
 import TimeSheetCodes from "./timeSheetCode";
 import CardDetails from "./cardDetails";
 import {CalculateHours, DEFAULT_TIME, DEFAULT_TIME_FORMAT, Hours, Log} from "./Utility"
-import "./Card.css"
+import "./css/Card.css"
 
 const Card = ({currentCard}:any): React.ReactElement =>
 {
@@ -42,37 +42,41 @@ const Card = ({currentCard}:any): React.ReactElement =>
     }
     useEffect(() => {}, [card, cardHours]);
     return (
-        <div className="Card" key = {card.id}>
-            <div className ="combo">
-                {card.combo ? card.combo: "No Combo Selected"}
-            </div>
-            <div className ="paycode">
-                {card.payCode ? card.payCode: "No PayCode Selected"}
-            </div>
-            <div className="projectCode">
-                {card.projectCode ? card.projectCode : "No Project Code Selected"}
-            </div>
-            <div className="startTime">
-                <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
-            </div>
-            <div className="endTime">
-                <TimePicker onChange = {setEndTime} value = {card.endTime ? card.endTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
-            </div>
-                   
-            {
-                timeCodes ? (
-                    <DropdownButton title="Select a Combo" onSelect={handleSelect}> 
-                        {timeCodes.map((timecode: TimeSheetCodes, index: number) => 
-                            <Dropdown.Item eventKey={index} key={index}>
-                                {timecode.id}
-                            </Dropdown.Item>)} 
-                    </DropdownButton>
-                )
-                :<div>
-                    <p>No Combo</p>
+        <div className="card other" data-bs-theme="dark">
+            <div className="card-body" key = {card.id}>
+                <h5 className ="card-title">
+                    {card.combo ? card.combo: "No Combo Selected"}
+                </h5>
+                <h6 className ="card-subtitle">
+                    {card.payCode ? card.payCode: "No PayCode Selected"}
+                </h6>
+                <p className="card-text">
+                    {card.projectCode ? card.projectCode : "No Project Code Selected"}
+                </p>
+                <div className="actions">
+                    <div className="startTime">
+                        <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
+                    </div>
+                    <div className="endTime">
+                        <TimePicker onChange = {setEndTime} value = {card.endTime ? card.endTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
+                    </div>
+                        
+                    {
+                        timeCodes ? (
+                            <DropdownButton title="Select a Combo" onSelect={handleSelect}> 
+                                {timeCodes.map((timecode: TimeSheetCodes, index: number) => 
+                                    <Dropdown.Item eventKey={index} key={index}>
+                                        {timecode.id}
+                                    </Dropdown.Item>)} 
+                            </DropdownButton>
+                        )
+                        :<div>
+                            <p>No Combo</p>
+                        </div>
+                    }   
+                    <button className="btn btn-primary remove" onClick={() => Remove()}>Remove</button>            
                 </div>
-            }   
-            <button onClick={() => Remove()}>Remove</button>            
+            </div>
         </div>
     )
 }
