@@ -148,8 +148,8 @@ const App = (): React.ReactElement => {
     useEffect(() => {GetCardsUsingDate(currentDate)}, [currentDate]);
     return (
         <div className="App">
-            <h1>TimeSheet</h1>
-            <h2 className='Messages'>{logMessage}</h2>
+            <h1 className="h1">TimeSheet</h1>
+            <h2 className="h2">{logMessage}</h2>
             <nav className="navbar navbar-expand-lg sticky-top bg-body-tertiary bg-dark" data-bs-theme="dark">
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarText">
@@ -161,7 +161,7 @@ const App = (): React.ReactElement => {
                             <button className = "btn btn-primary navbtn" onClick={() => (Save())}>Save</button>
                         </li>
                         <li className="nav-item">
-                            <button className = "btn btn-primary navbtn" onClick={() => (DeleteAll(currentDate))}>Delete</button>
+                            <button className = "btn btn-primary navbtn" onClick={() => (DeleteAll(currentDate))}>Delete All</button>
                         </li>
                         <li>
                             <DatePicker className="datePicker" selected={currentDate} onChange={(date: Date) => {setCurrentDate(date)}}/>

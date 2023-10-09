@@ -311,6 +311,70 @@
           "id": "3e9ca46e-ef5f-4dc8-8691-c3c56a32811b",
           "startTime": "14:32:48",
           "endTime": "14:32:48",
+          "combo": "PBI",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
+        },
+        {
+          "id": "fa0d61ed-2a4f-4c0b-89f2-2984f954f234",
+          "startTime": "15:42:48",
+          "endTime": "15:42:48",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "a3767bde-83b5-4863-b3c5-8898ac89b2b2",
+          "startTime": "15:42:48",
+          "endTime": "15:42:48",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "d760692b-2799-470c-a7e9-1c392f8d4125",
+          "startTime": "15:42:48",
+          "endTime": "15:42:49",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "e605b5ea-6247-4175-8325-99c9c2abab0a",
+          "startTime": "15:42:49",
+          "endTime": "15:42:49",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "b911aab0-3bf8-42a8-a497-887bbd64a4e7",
+          "startTime": "15:42:49",
+          "endTime": "15:42:49",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "aa9d56fd-9719-4db0-ba52-611fd841603b",
+          "startTime": "15:42:51",
+          "endTime": "15:42:51",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "7dcf100d-9137-4db1-9c85-72a9216aa035",
+          "startTime": "15:42:51",
+          "endTime": "15:42:51",
+          "combo": "Work",
+          "payCode": "Work",
+          "projectCode": "^-^"
+        },
+        {
+          "id": "0e4de955-d353-42b4-b42a-6513f3800918",
+          "startTime": "15:42:52",
+          "endTime": "15:42:53",
           "combo": "Meal",
           "payCode": "Meeting, Planning, Maintenance",
           "projectCode": "Non Project Time"
