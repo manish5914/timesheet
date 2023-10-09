@@ -151,27 +151,6 @@
       ]
     },
     {
-      "id": "2023-10-10",
-      "saveData": [
-        {
-          "id": "6dd24bc4-1588-4dfb-a2a1-d9cf3609a129",
-          "startTime": "11:15:49",
-          "endTime": "11:15:55",
-          "combo": "Bug",
-          "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
-        },
-        {
-          "id": "8da560b3-15a0-4c85-9195-5905904b554c",
-          "startTime": "11:16:03",
-          "endTime": "11:17",
-          "combo": "Team Meeting",
-          "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - Operations"
-        }
-      ]
-    },
-    {
       "id": "2023-10-08",
       "saveData": [
         {
@@ -217,38 +196,51 @@
       ]
     },
     {
-      "id": "2023-10-09",
+      "id": "2023-10-10",
       "saveData": [
         {
-          "id": "91cace01-1dd7-4721-a2f9-ca04d3467fb0",
-          "startTime": "10:59:52",
-          "endTime": "10:59:53",
+          "id": "6dd24bc4-1588-4dfb-a2a1-d9cf3609a129",
+          "startTime": "11:15:49",
+          "endTime": "11:15:55",
+          "combo": "Bug",
+          "payCode": "Meeting, Planning, Maintenance",
+          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
+        },
+        {
+          "id": "8da560b3-15a0-4c85-9195-5905904b554c",
+          "startTime": "11:16:03",
+          "endTime": "11:17",
           "combo": "PBI",
           "payCode": "Product Enhancement",
           "projectCode": "DF - HR_Mauritius_Feature_Development"
-        },
+        }
+      ]
+    },
+    {
+      "id": "2023-10-09",
+      "saveData": [
         {
           "id": "bac12f28-1beb-448d-9a7c-3cd555b83213",
           "startTime": "10:59:53",
           "endTime": "10:59:54",
-          "combo": "Scrum",
+          "combo": "Team Meeting",
           "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - HR_Mauritius_Feature_Development"
+          "projectCode": "DF - Operations"
         },
         {
           "id": "61c49db0-1012-4fec-aca1-5160e07a38d4",
           "startTime": "10:59:54",
           "endTime": "10:59:55",
-          "combo": "Meal",
+          "combo": "Bug",
           "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "Non Project Time"
+          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
         },
         {
           "id": "07a4af4f-36a1-4c5a-b7af-d7bd00d7fb58",
           "startTime": "13:58:26",
           "endTime": "13:58:26",
-          "combo": "Scrum",
-          "payCode": "Meeting, Planning, Maintenance",
+          "combo": "Grooming",
+          "payCode": "Product Enhancement",
           "projectCode": "DF - HR_Mauritius_Feature_Development"
         },
         {
@@ -263,9 +255,9 @@
           "id": "05648749-fd91-4e5a-a3ab-ea702d18c3d7",
           "startTime": "13:58:28",
           "endTime": "13:58:29",
-          "combo": "Scrum",
+          "combo": "Bug",
           "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - HR_Mauritius_Feature_Development"
+          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
         },
         {
           "id": "a37de1ab-b216-471c-b8fe-67c9e1920226",
@@ -316,14 +308,6 @@
           "projectCode": "DF - HR_Mauritius_Feature_Development"
         },
         {
-          "id": "fa0d61ed-2a4f-4c0b-89f2-2984f954f234",
-          "startTime": "15:42:48",
-          "endTime": "15:42:48",
-          "combo": "Work",
-          "payCode": "Work",
-          "projectCode": "^-^"
-        },
-        {
           "id": "a3767bde-83b5-4863-b3c5-8898ac89b2b2",
           "startTime": "15:42:48",
           "endTime": "15:42:48",
@@ -359,25 +343,9 @@
           "id": "aa9d56fd-9719-4db0-ba52-611fd841603b",
           "startTime": "15:42:51",
           "endTime": "15:42:51",
-          "combo": "Work",
-          "payCode": "Work",
-          "projectCode": "^-^"
-        },
-        {
-          "id": "7dcf100d-9137-4db1-9c85-72a9216aa035",
-          "startTime": "15:42:51",
-          "endTime": "15:42:51",
-          "combo": "Work",
-          "payCode": "Work",
-          "projectCode": "^-^"
-        },
-        {
-          "id": "0e4de955-d353-42b4-b42a-6513f3800918",
-          "startTime": "15:42:52",
-          "endTime": "15:42:53",
-          "combo": "Meal",
-          "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "Non Project Time"
+          "combo": "PBI",
+          "payCode": "Product Enhancement",
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
         }
       ]
     }

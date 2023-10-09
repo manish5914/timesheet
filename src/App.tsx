@@ -26,7 +26,9 @@ const App = (): React.ReactElement => {
     const PostSaveTimeSheet = async(saveData: CardDetails[], date: string) => {
         var timesheetData = {id: date, saveData};
         api.postSaveTimesheet(timesheetData)
-        .then((response:AxiosResponse) => Log("Data saved","", setLogMessage))
+        .then((response:AxiosResponse) => {
+            Log("Data saved","", setLogMessage);
+        })
         .catch((error:AxiosError)=> Log("failed", error, setLogMessage));
     }
     const GetCardsUsingDate = async(timesheetDateId: Date) => {
