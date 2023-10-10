@@ -53,6 +53,9 @@ const Card = ({currentCard}:any): React.ReactElement =>
                 <p className="card-text">
                     {card.projectCode ? card.projectCode : "No Project Code Selected"}
                 </p>
+                <p className = "card-text">
+                    {card.id ? card.id: "no Id"}
+                </p>
                 <div className="actions">
                     <div className="startTime">
                         <TimePicker onChange={setStartTime} value = {card.startTime ? card.startTime : DEFAULT_TIME} format = {DEFAULT_TIME_FORMAT}/>
