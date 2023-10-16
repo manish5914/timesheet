@@ -1,0 +1,64 @@
+.Card {
+    background-color: #212426;
+
+    margin-left : 20px;
+    margin-top: 10px;
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 10px 0 rgba(255, 255, 255, 0.19); ;
+    border-color:  white;
+    position: relative;
+  }
+  
+/* .Card .combo{
+    color: white;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 30px;
+    justify-content: left;
+}
+
+.Card .paycode {
+    
+    color: white;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 22px;
+    max-width: 250px;;
+}
+
+.Card .projectCode {
+    color: white;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 18px;
+    text-justify: auto;
+    overflow-wrap: break-word;
+    margin: 10px;
+} */
+.card{
+    position:relative;
+}
+.card .actions{
+    position:absolute;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    bottom: 0px;
+    left:53px;
+}
+
+.card .btn-primary{
+    margin-top: 5px;
+    width: 100%;
+}
+
+.other{
+    width: 18rem;
+    margin-top:10px;
+    margin-right: 10px;
+    width: 250px; 
+    height: 400px;  
+}
