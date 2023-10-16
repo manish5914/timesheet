@@ -9,14 +9,23 @@ import TimeSheetCodes from "./timeSheetCode";
 import CardDetails from "./cardDetails";
 import {CalculateHours, DEFAULT_TIME, DEFAULT_TIME_FORMAT, Hours, Log} from "./Utility"
 import "./css/Card.css"
+//, timecodes, updateTimeCodeFunction, UpdateCardTimeFunction, DeleteCardFunction
 
-const Card = ({currentCard}:any): React.ReactElement =>
+export interface CardProps {
+    card: CardDetails, 
+    timesheetCodes: TimeSheetCodes[], 
+    UpDateTimeCode: Function, 
+    UpdateCardTime: Function, 
+    DeleteCard: Function
+}
+
+const Card = (cardProps: CardProps): React.ReactElement =>
 {
-    const [card]= useState<CardDetails>(currentCard[0]);
-    const [timeCodes] = useState<TimeSheetCodes[]>(currentCard[1]);
-    const updateTimeCode: Function = currentCard[2];
-    const UpdateCardTime: Function = currentCard[3];
-    const DeleteCard: Function = currentCard[4];
+    const [card]= useState<CardDetails>(cardProps.card);
+    const [timeCodes] = useState<TimeSheetCodes[]>(cardProps.timesheetCodes);
+    const updateTimeCode: Function = cardProps.UpDateTimeCode;
+    const UpdateCardTime: Function = cardProps.UpdateCardTime;
+    const DeleteCard: Function = cardProps.DeleteCard;
     const [cardHours, setHours] = useState<number>(0);
 
     const handleSelect = (e: string) => {

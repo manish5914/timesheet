@@ -15,8 +15,6 @@ const App = (): React.ReactElement => {
     const [timesheetCode, setTimesheetCode] = useState<TimeSheetCodes[]>([]);
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [logMessage, setLogMessage] = useState<string>("Hi");
-    const [names, setNames] = useState<string[]>(["nishna", "uddhav", "manish"]);
-    const [flag, setFlag] = useState<boolean>(false);
 
     const api = new Api();
     //api
@@ -147,21 +145,10 @@ const App = (): React.ReactElement => {
     
         Log("Delete Card", cardId);
     }
-    const RemoveName = (index: string): void => {
-        setNames(names.filter((x) => x !== index));
-    }
-
-    const CreateCards = () => {
-        return (
-            (cards && cards.length > 0) ? (cards.map((card, index) => (
-                <Card currentCard = {[card, timesheetCode, UpdateTimeCode, UpdateCardTime, DeleteCard]} key = {index}/>
-                )) ): <p>Add Card</p>    
-        )
-    }
 
     useEffect(() => {GetTimesheetCode()}, []);
     useEffect(() => {GetCardsUsingDate(currentDate)}, [currentDate]);
-    useEffect(() => {Log("useEffect", cards), Log("cards", CreateCards())}, [cards])
+    useEffect(() => {Log("useEffect", cards)}, [cards])
     return (
         <div className="App">
             <h1 className="h1">TimeSheet</h1>
@@ -188,14 +175,19 @@ const App = (): React.ReactElement => {
             </nav>
             <div className='Cards'>
                 {
-                    CreateCards()           
+                    (cards && cards.length > 0) ? (cards.map((card, index) => (
+                        <div>
+                            <Card card = {card} timesheetCodes = {timesheetCode} UpDateTimeCode = {UpdateTimeCode} UpdateCardTime = {UpdateCardTime} DeleteCard ={DeleteCard} key = {index}/>
+                            <button onClick={()=> {DeleteCard(card.id)}}>Remove</button>    
+                        </div>
+                    )) ): <p>Add Card</p>          
                 }
             </div>
             <div>
-                {cards.map((name, index) => (
+                {cards.map((cardTest, index) => (
                 <div key={index}>
-                    <p>{name.id}</p>
-                    <button onClick={()=> {DeleteCard(name.id)}}>remove {name.id}</button>
+                    <p>{cardTest.id}</p>
+                    <button onClick={()=> {DeleteCard(cardTest.id)}}>remove {cardTest.id}</button>
                 </div>
                 ))}
 

@@ -324,14 +324,6 @@
       "id": "2023-10-10",
       "saveData": [
         {
-          "id": "6dd24bc4-1588-4dfb-a2a1-d9cf3609a129",
-          "startTime": "11:15:49",
-          "endTime": "11:15:55",
-          "combo": "Bug",
-          "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
-        },
-        {
           "id": "bd23909b-2256-4676-8c57-648ff4a55813",
           "startTime": "14:32:45",
           "endTime": "14:32:45",
