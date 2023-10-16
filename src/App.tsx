@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect, useState, useReducer} from 'react';
+import {useEffect, useState, useReducer, useRef} from 'react';
 import './css/App.css';
 import CardDetails, { CreateCard } from './cardDetails';
 import TimeSheetCodes from './timeSheetCode';
@@ -28,6 +28,7 @@ const cardReducer = (state: CardDetails[], action: Action) => {
             if(action.cardIdToRemove){
                 return state.filter((item:CardDetails) => item.id !== action.cardIdToRemove);
             }
+            return state;
         default:
             throw new Error();
     }
@@ -38,8 +39,8 @@ const App = (): React.ReactElement => {
     const [timesheetCode, setTimesheetCode] = useState<TimeSheetCodes[]>([]);
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [logMessage, setLogMessage] = useState<string>("Hi");
-
     const api = new Api();
+    const CardsRef = useRef<any>(null);
     //api
     const GetTimesheetCode = () => {
         api.getTimesheetCodes()
@@ -85,7 +86,11 @@ const App = (): React.ReactElement => {
     //functions
 
     const UpdateCardTime = (cardUUID: string, timeValue: string, type: string): void =>{
-        let newArr: CardDetails[] = cards? [...cards] : [];
+        if(!cards){
+            Log("list of cards empty", "", setLogMessage);
+            return;
+        }
+        let newArr: CardDetails[] = [...cards];
         let cardIndex = newArr.findIndex(x => x.id === cardUUID);
         if(newArr && newArr[cardIndex]){
             if(type === "start")
@@ -100,7 +105,11 @@ const App = (): React.ReactElement => {
         });
     }
     const UpdateTimeCode = (cardUUID: string, timeSheetIndex: number): void => {
-        let newArr: CardDetails[] = cards? [...cards] : [];
+        if(!cards){
+            Log("list of cards empty", "", setLogMessage);
+            return;
+        }
+        let newArr: CardDetails[] = [...cards];
         let cardIndex = newArr.findIndex(x => x.id === cardUUID);
         if(newArr && newArr[cardIndex]){
             newArr[cardIndex].combo = timesheetCode[timeSheetIndex].id;
@@ -120,8 +129,14 @@ const App = (): React.ReactElement => {
             return CreateCard(DEFAULT_TIME, DEFAULT_TIME, "null", DEFAULT_TIMESHEET_CODE,  DEFAULT_TIMESHEET_CODE);
     };
     const ClockIn = (): void => {
+        debugger;
+        if(!cards){
+            Log("list of cards empty", "", setLogMessage);
+            return;
+        }
+        debugger;
         var currentTime = new Date().toLocaleTimeString().substring(0, 8);
-        let newArr: CardDetails[] = cards? [...cards] : [];
+        let newArr: CardDetails[] = [...cards];
         let lastItemIndex = newArr.length - 1;
         if(newArr[lastItemIndex]){
             if(newArr[lastItemIndex].startTime === "start" ){
@@ -141,10 +156,12 @@ const App = (): React.ReactElement => {
             type: ActionTypes.SET,
             payload: newArr
         });
+        if(CardsRef && CardsRef.current)
+            CardsRef.current.updateCards(newArr);
     }
     const Save = (): void => {
         if(!cards){
-
+            Log("list of cards empty", "", setLogMessage);
             return;
         }
         let lastCard = cards[cards.length -1]
@@ -215,7 +232,7 @@ const App = (): React.ReactElement => {
                 {
                     (cards && cards.length > 0) ? (
                         <div>
-                            <Card card = {cards} timesheetCodes = {timesheetCode} UpDateTimeCode = {UpdateTimeCode} UpdateCardTime = {UpdateCardTime} DeleteCard ={DeleteCard}/> 
+                            <Card ref={CardsRef} card = {cards} timesheetCodes = {timesheetCode} UpDateTimeCode = {UpdateTimeCode} UpdateCardTime = {UpdateCardTime} DeleteCard ={DeleteCard}/> 
                         </div>
                     ): <p>Add Card</p>          
                 }

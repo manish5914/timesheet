@@ -335,9 +335,9 @@
           "id": "86486969-8397-4cab-bf18-7ecfddcddc21",
           "startTime": "14:35:55",
           "endTime": "14:35:56",
-          "combo": "Meal",
+          "combo": "Scrum",
           "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "Non Project Time"
+          "projectCode": "DF - HR_Mauritius_Feature_Development"
         },
         {
           "id": "7d504984-4896-48a9-a45b-fdc50aa5266e",
@@ -353,25 +353,9 @@
       "id": "2023-10-16",
       "saveData": [
         {
-          "id": "a9fae6d1-7df2-45d3-8e41-47f5c47c8b25",
-          "startTime": "13:25:54",
-          "endTime": "13:25:55",
-          "combo": "PBI",
-          "payCode": "Product Enhancement",
-          "projectCode": "DF - HR_Mauritius_Feature_Development"
-        },
-        {
-          "id": "a8b65011-a4cb-44e7-b339-2143348a8e7d",
-          "startTime": "13:25:55",
-          "endTime": "13:25:56",
-          "combo": "Bug",
-          "payCode": "Meeting, Planning, Maintenance",
-          "projectCode": "DF - HR_Mauritius_Production_Maintenance"
-        },
-        {
-          "id": "76075f54-96d9-467c-afd5-bc041d23fd67",
-          "startTime": "13:25:57",
-          "endTime": "13:25:58",
+          "id": "4d13932f-c482-4325-898c-5dbb809c6430",
+          "startTime": "14:49:55",
+          "endTime": "14:49:56",
           "combo": "Scrum",
           "payCode": "Meeting, Planning, Maintenance",
           "projectCode": "DF - HR_Mauritius_Feature_Development"
